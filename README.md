@@ -87,6 +87,9 @@ Checking the value in the stack pointer register
 addi - add immediate
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/cf86ccae-b3bd-4fd2-a154-884067c2be8f)
 
+#### Integer number representation
+##### 64-bit Number System for Unsigned Numbers
+
 
 
 
