@@ -188,7 +188,13 @@ ABI makes system calls using these 32 registers. Internal names of the registers
 
 #### ABI Lab
 ##### Study New Algorithm for Sum 1 to N Using ASM
+Through the C program, we will make some function calls to the assembly language program in the RISC-V ISA. 
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/a9080c5d-13f2-4089-a756-b82c79e37ea8)
+Here, the arguments are passed into registers a0, a1, and they will be returned to register a0. 
+Algorithm: We can use any registers for a1 to a7
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/4765db0b-ba6c-4573-8d96-69a63504e3b4)
 
+##### ASM Function Call
 
 
 
