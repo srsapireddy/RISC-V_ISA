@@ -1,14 +1,14 @@
 # RISC-V_ISA
 
-#### Introduction to RISC-V Basics
-##### RISC-V Instruction Set Architecture
+### Introduction to RISC-V Basics
+#### RISC-V Instruction Set Architecture
 This is the way we are going to talk to the computers. Suppose we need a C program to run on a computer/ hardware with a particular layout (interior of the chip present inside the laptop). The C program is first compiled into assembly program language, which is nothing but the RISC-V assembly language program. This assembly language program is converted into the machine language program in the form of a binary language program, which is understood by the hardware of the computer present in the hexadecimal format. 
 
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/03e27285-21d4-4cc2-9e6e-59d8737b10c5) </br>
 
 We need to implement the RISC-V specification present in C language into some RTL. From RTL to layout, it is called the standard PnR flow (RTL to GDS flow). The entire flow starts from the RISC-V architecture. And implemented in RTL and RTL to the layout.
 
-##### From Applications to Hardware
+#### From Applications to Hardware
 
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/c8ad70e5-8717-4b0d-a4df-2c55a4524b0f) </br>
 
@@ -24,7 +24,7 @@ The instruction acts as the abstract interface between the C program and the har
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/e1f8f06a-e73c-4ac7-9ee2-60aafd9264cf) </br>
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/47943449-4885-4ae9-813c-ae987c37c47e) </br>
 
-#### Basics
+### Basics
 We will start with integer addition and multiplication. 
 
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/30c3404b-ddf9-484c-91b6-55c946cdfdfc)
@@ -48,13 +48,13 @@ These registers can be accessed by the application programmers directly. These a
 There is some data transfer between the registers and memory. This is called the Memory allocation and stack pointer.
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/0cf72672-b250-42be-83ae-f5cec3d09e45)
 
-#### Labwork for RISC-V
-##### C Program to Compute Sum From 1 to N
+### Labwork for RISC-V
+#### C Program to Compute Sum From 1 to N
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/56542919-b5e8-4511-8cbf-be2a96113877)
 Output:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/947c4cce-b940-4dd1-861a-5eb529815054)
 
-##### RISCV GCC Compile and Disassemble
+#### RISCV GCC Compile and Disassemble
 Compiling the same code with RISC-V gcc compiler:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/9226d880-fc09-45a7-bc17-f7c950b112c1)
 
@@ -67,7 +67,7 @@ Assembly code for which we are trying to run the C program:
 Running the command with different options:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/54a05cf8-a28a-4a9f-b426-22a33e0194c4)
 
-##### Spike Simulation and Debug
+#### Spike Simulation and Debug
 To check if the simulations are as expected 
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/639ffa8f-9364-4bcc-8a00-8c8cae92e62d)
 
@@ -87,8 +87,8 @@ Checking the value in the stack pointer register
 addi - add immediate
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/cf86ccae-b3bd-4fd2-a154-884067c2be8f)
 
-#### Integer number representation
-##### 64-bit Number System for Unsigned Numbers
+### Integer number representation
+#### 64-bit Number System for Unsigned Numbers
 There has to be an interface that converts humans' understanding of decimal format to computers' understanding of binary format. 
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/dda3db1c-d95c-4556-a604-8539e43a8ce9)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d8869fb2-c2ba-4936-bc21-2ad9ce16338f)
@@ -97,7 +97,7 @@ There has to be an interface that converts humans' understanding of decimal form
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/7d6058be-2494-4b94-a4cd-17f5a634c3c6)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3407b46a-448c-4d49-b6d7-474c497cdede)
 
-##### 64-bit Number System for Signed Numbers
+#### 64-bit Number System for Signed Numbers
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/6283f68b-9450-4eb5-999d-b89a8ad79c6a)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/04042667-e244-4966-b969-9d555f64b238)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/2ff6bc55-80f9-4a68-847b-723c85d9a0fa)
@@ -114,7 +114,7 @@ There has to be an interface that converts humans' understanding of decimal form
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d515a382-b50b-486f-9031-6c8dc628b2a3)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/aeb79849-e565-4ead-b77b-c951dc1f9688)
 
-##### Unsigned and Signed Numbers Lab
+#### Unsigned and Signed Numbers Lab
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/de8d466c-bfa9-45c5-8277-9d1dd2759fcf)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/a23a2311-009e-47da-9496-f9e915e1c5f3)
 Check for the max value
@@ -131,9 +131,9 @@ To represent Signed Number
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/1a74e228-bdfa-434a-a12e-745236d77737)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/be4ae7bf-c5b2-4cd1-98ef-bbcb6ba6af01)
 
-#### Introduction to ABI and Basic Verification Flow
+### Introduction to ABI and Basic Verification Flow
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/f50b657f-ff4c-49fd-a953-08e46f24d3d4)
-##### Introduction to Application Binary Interface
+#### Introduction to Application Binary Interface
 Interface Meaning:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ab1909f6-c284-43e1-824a-16d524a5fb79)
 In terms of computers
@@ -147,7 +147,7 @@ If the application programmer wants to access the system resources of the proces
 In RISC-V we got 32 registers
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ec8cb5b5-b32c-49b1-a373-a0f6590d5e5b)
 
-##### Memory Allocation for Double Words
+#### Memory Allocation for Double Words
 Why do we have only 32 registers?
 Two ways to load values to registers:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/e014b683-db92-47da-a616-b7e027851fef)
@@ -155,7 +155,7 @@ Two ways to load values to registers:
 Addresses are shown in green color.
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/5824d51a-bae4-4ae7-97a0-939d82adb9b1)
 
-##### Load, Add, and Store Instructions with Example
+#### Load, Add, and Store Instructions with Example
 We are trying to load the data into X8 register
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/0739c01e-a9b4-4430-bf29-2b87cedb57e4)
 We need the 1st address to get the value of the 16th address of the memory. The base address starts with 0 value
@@ -171,7 +171,7 @@ Example 3: Storing back to memory. Here, 8 is the offset. Offset - where to star
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/bb2c0b80-f809-419d-a41c-db49e11fa5ca)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3fca7ce3-d486-4bcb-8a73-e9ceb4126459)
 
-##### 32-Registers and their Respective ABI Names
+#### 32-Registers and their Respective ABI Names
 There are a total of 47 base instructions
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/59fe5c85-4514-4cda-8ad9-dcf22ec3ad6e)
 Add instruction operates on only registers. These types of registers are called R-type instructions.
@@ -186,26 +186,28 @@ ABI makes system calls using these 32 registers. Internal names of the registers
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d3b679d6-4807-42cb-b93e-2333566b31fd)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/01a6bc53-c321-4b3c-ad3e-8c4eed77bcb3)
 
-#### ABI Lab
-##### Study New Algorithm for Sum 1 to N Using ASM
+### ABI Lab
+#### Study New Algorithm for Sum 1 to N Using ASM
 Through the C program, we will make some function calls to the assembly language program in the RISC-V ISA. 
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/a9080c5d-13f2-4089-a756-b82c79e37ea8)
 Here, the arguments are passed into registers a0, a1, and they will be returned to register a0. 
 Algorithm: We can use any registers for a1 to a7
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/4765db0b-ba6c-4573-8d96-69a63504e3b4)
 
-##### ASM Function Call
+#### ASM Function Call
 The main program which does the function call
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/23020006-2272-4a25-9a94-fedf63d64b07)
 The function itself
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/6cf367a8-399e-4e1e-b427-6dc14a98c241)
 
-##### Simulating new C program with Function Call
+#### Simulating new C program with Function Call
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/f0f6a0b4-10ac-4c7f-a1a5-f7d3748e2332)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/151c97d7-7749-4656-a108-19ad84bbb483)
 Theory:![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/9db5514b-c3da-4b86-b9f4-39105772d965)
 
-#### Basic verification flow using iverilog
+### Basic verification flow using iverilog
+#### Running C Program on RISC-V CPU
+
 
 
 
