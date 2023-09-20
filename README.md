@@ -213,6 +213,8 @@ We convert this C program into HEX file format in memory to load into RISC-V CPU
 
 Files Directory of PicoRV32
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/0c847554-fe54-4c14-9d3d-276600b90c54)
+This creates a HEX file in binary format. 
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/46574f4a-a0d9-48b1-b30b-a7bbb203cc51)
 
 
 
