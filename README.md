@@ -172,6 +172,24 @@ Example 3: Storing back to memory. Here, 8 is the offset. Offset - where to star
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3fca7ce3-d486-4bcb-8a73-e9ceb4126459)
 
 ##### 32-Registers and their Respective ABI Names
+There are a total of 47 base instructions
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/59fe5c85-4514-4cda-8ad9-dcf22ec3ad6e)
+Add instruction operates on only registers. These types of registers are called R-type instructions.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/0b852c41-3e44-4f09-bf22-f21ac05449b1)
+Instructions that operate on registers and immediate are called I-type instructions
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/8357ce6a-2dad-4bbc-9cee-dff52a6556f1)
+sd operates only on the source registers and the immediate. This is for storing something. This type of instruction is called S-type instruction.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ebebc322-935d-4208-b19d-4e241b0df4e2)
+All the registers accessed here are 5-bits
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/a8d68f90-685d-43ea-882c-a5bcd2d02be6)
+ABI makes system calls using these 32 registers. Internal names of the registers to access these registers.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d3b679d6-4807-42cb-b93e-2333566b31fd)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/01a6bc53-c321-4b3c-ad3e-8c4eed77bcb3)
+
+#### ABI Lab
+##### Study New Algorithm for Sum 1 to N Using ASM
+
+
 
 
 
