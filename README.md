@@ -195,7 +195,7 @@ Algorithm: We can use any registers for a1 to a7
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/4765db0b-ba6c-4573-8d96-69a63504e3b4)
 
 #### ASM Function Call
-The main program which does the function call
+The main program that does the function call
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/23020006-2272-4a25-9a94-fedf63d64b07)
 The function itself
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/6cf367a8-399e-4e1e-b427-6dc14a98c241)
@@ -207,6 +207,13 @@ Theory:![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/9db551
 
 ### Basic verification flow using iverilog
 #### Running C Program on RISC-V CPU
+We convert this C program into HEX file format in memory to load into RISC-V CPU
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d9ef5b61-4d20-45b9-8f00-657f5577322d)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/617b607f-2c1b-4730-a5b0-2e1c888d2fdc)
+
+Files Directory of PicoRV32
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/0c847554-fe54-4c14-9d3d-276600b90c54)
+
 
 
 
