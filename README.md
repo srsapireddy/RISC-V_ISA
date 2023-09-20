@@ -114,6 +114,56 @@ There has to be an interface that converts humans' understanding of decimal form
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d515a382-b50b-486f-9031-6c8dc628b2a3)
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/aeb79849-e565-4ead-b77b-c951dc1f9688)
 
+##### Unsigned and Signed Numbers Lab
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/de8d466c-bfa9-45c5-8277-9d1dd2759fcf)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/a23a2311-009e-47da-9496-f9e915e1c5f3)
+Check for the max value
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/aef2dc1c-2f6f-453c-8f6c-7c8337282622)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/dba94e83-5c42-4097-bd6f-4cd3cf1cc23f)
+Example 2
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/cd71eb5a-1165-47e9-8cbd-9a64476f1d94)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/1a76749e-cd0c-4bb9-99e1-7cce313edd9f)
+
+For Signed Number
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/70937750-4354-4107-85e3-5354211da773)
+To represent Signed Number
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/a7a6a8c8-ca34-4c02-9b13-26df96de3374)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/1a74e228-bdfa-434a-a12e-745236d77737)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/be4ae7bf-c5b2-4cd1-98ef-bbcb6ba6af01)
+
+#### Introduction to ABI and Basic Verification Flow
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/f50b657f-ff4c-49fd-a953-08e46f24d3d4)
+##### Introduction to Application Binary Interface
+Interface Meaning:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ab1909f6-c284-43e1-824a-16d524a5fb79)
+In terms of computers
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/90e6767c-2096-4288-a0e9-8223287ddc6b)
+The ISA is accessible to the operating system and the user through standard libraries for the developer.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/8c1a7bb2-f132-4da9-a124-e8e241a99b83)
+Some parts of ISA are available to the operating system, and some are available to the programmer directly. Those parts are defined as User ISA and User & system ISA.
+The application program can access some operating system resources using system calls. The application program can access the registers of RISC-V architecture via system calls. This interface is called the Application Binary Interface.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/257b2bc4-fe30-46b2-9eee-33ba03f48ac4)
+If the application programmer wants to access the system resources of the processor, this has to be done using the registers.
+In RISC-V we got 32 registers
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ec8cb5b5-b32c-49b1-a373-a0f6590d5e5b)
+
+##### Memory Allocation for Double Words
+Why do we have only 32 registers?
+Two ways to load values to registers:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/e014b683-db92-47da-a616-b7e027851fef)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/1a762366-0ef8-427c-bba1-7d6b1772dd55)
+Addresses are shown in green color.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/5824d51a-bae4-4ae7-97a0-939d82adb9b1)
+
+##### Load, Add and Store Instructions with Example
+
+
+
+
+
+
+
+
 
 
 
