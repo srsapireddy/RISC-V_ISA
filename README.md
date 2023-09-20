@@ -195,6 +195,17 @@ Algorithm: We can use any registers for a1 to a7
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/4765db0b-ba6c-4573-8d96-69a63504e3b4)
 
 ##### ASM Function Call
+The main program which does the function call
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/23020006-2272-4a25-9a94-fedf63d64b07)
+The function itself
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/6cf367a8-399e-4e1e-b427-6dc14a98c241)
+
+##### Simulating new C program with Function Call
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/f0f6a0b4-10ac-4c7f-a1a5-f7d3748e2332)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/151c97d7-7749-4656-a108-19ad84bbb483)
+Theory:![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/9db5514b-c3da-4b86-b9f4-39105772d965)
+
+#### Basic verification flow using iverilog
 
 
 
