@@ -155,7 +155,24 @@ Two ways to load values to registers:
 Addresses are shown in green color.
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/5824d51a-bae4-4ae7-97a0-939d82adb9b1)
 
-##### Load, Add and Store Instructions with Example
+##### Load, Add, and Store Instructions with Example
+We are trying to load the data into X8 register
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/0739c01e-a9b4-4430-bf29-2b87cedb57e4)
+We need the 1st address to get the value of the 16th address of the memory. The base address starts with 0 value
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/19c4b465-dff0-4214-b08f-cf14b257b728)
+16(x23) forms the source address. Here, 16 gets added to the contents of x23 to form the final address.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/569a4854-1885-4923-a578-65ed16750c8b)
+Representation of 16(x23) inside the computer. Here, 16 is the offset. 
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/c0c12261-5ef1-45e2-870b-c0003f985246)
+Example 2: add instruction
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/faa4768f-dde1-4a7d-b36b-77647004184b)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/5b415980-5455-479a-8140-08be072bc2ae)
+Example 3: Storing back to memory. Here, 8 is the offset. Offset - where to start loading
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/bb2c0b80-f809-419d-a41c-db49e11fa5ca)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3fca7ce3-d486-4bcb-8a73-e9ceb4126459)
+
+##### 32-Registers and their Respective ABI Names
+
 
 
 
