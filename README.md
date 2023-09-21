@@ -277,9 +277,12 @@ Initially, we started understanding the Makerchip IDE platform by trying some ba
 
 ```
 
-#### Exercise 3: Vectors Lab
+#### Exercise 3: Logic Gates and Vectors Lab
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/12fc1968-69da-4270-9b8b-d6828ea32e5d)
-##### Output:
+##### Logic Gates Output:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/6f3f41b1-9d11-4dbc-adf3-fcf21f7633d2)
+
+##### Vectors Output:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d2a7017c-4415-4df8-9320-6ff4877c76ad)
 ##### Code
 ```
