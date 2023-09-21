@@ -533,7 +533,61 @@ We can run the design at a higher clock by pipelining the design. So, if we run 
 When we are pipelining the design, we are distributing the design in time. 
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/05ec8b39-de0a-4709-a213-53fd6c9ca6b3)
 
+#### 2 Cycle Calculator Example
+##### In 1 cycle
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/fa15f237-68c2-47a0-b7e3-0d1ad105747d)
+##### In 2 cycle
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/0f44bdcc-d0e7-48d3-bd1f-0ff3b6117146)
+##### Output
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/a348dcd5-6a9d-4379-aa3d-bd8f1433ec32)
+#### Code
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
 
+   // =========================================
+   // Welcome!  Try the tutorials via the menu.
+   // =========================================
+
+   // Default Makerchip TL-Verilog Code Template
+   
+   // Macro providing required top-level module definition, random
+   // stimulus support, and Verilator config.
+   m4_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+   //$reset = *reset;
+   
+   |calc
+      @0
+         $reset = *reset;
+         
+      @1
+         $val1 [31:0] = >>2$out [31:0];
+         $val2 [31:0] = $rand2[3:0];
+         
+         $valid [31:0] = $reset ? 32'b0 : >>1$valid + 1 ;
+         $valid_or_reset = $valid | $reset;
+   
+         
+      ?$vaild_or_reset
+         @1   
+            $sum [31:0] = $val1 + $val2;
+            $diff[31:0] = $val1 - $val2;
+            $prod[31:0] = $val1 * $val2;
+            $quot[31:0] = $val1 / $val2;
+            
+         @2                                           
+            $out [31:0] = $reset ? 32'b0 : 
+                          $valid_or_reset ? ($op[0] ? $sum : ($op[1] ? $diff : ($op[2] ? $prod : $quot ))) :
+                          >>2$out;
+            
+                 
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+```
 
 
 
