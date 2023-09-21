@@ -242,8 +242,15 @@ Link: https://makerchip.com/sandbox/00Rf2hDnr/0lOh4v
 #### Labs for Combinational Logic
 Exercise 1:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ada93032-494a-419f-af8e-6cfe2fdfcf3d)
+Output:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ba5a18dd-4acf-438a-8be4-ace026c60625)
+Link: https://makerchip.com/sandbox/00Rf2hDnr/0mwh4n#
 Exercise 2:
+Initially, we started understanding the Makerchip IDE platform by trying some basic digital logic gates, with the inverter being the standard. In TL Verilog, we code the logic itself viz $out =!$in1 without declaring the variables separately, and $in an assignment is also not required. The output of the above is shown in the figure below. We note that simultaneous highlighting of the variable is possible at the output.
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3292720d-199d-408a-b684-8d016b2f9cd7)
+Output:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/62cf9d68-c44c-48ea-b295-b85918a09d33)
+Link: https://makerchip.com/sandbox/00Rf2hDnr/0mwh4n
 Exercise 3: Vectors Lab
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/12fc1968-69da-4270-9b8b-d6828ea32e5d)
 Exercise 4: Mux
