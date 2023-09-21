@@ -405,6 +405,50 @@ Initially, we started understanding the Makerchip IDE platform by trying some ba
    endmodule
 ```
 
+### Sequential Logic
+#### Introduction to Sequential Logic and Counter
+First, the Fibonacci series is discussed, and the single line code $num[31:0] = $reset ? 1 : (>>1$num + >>2$num); implementing it is written. Here, the concept of ahead operator >>1 and >>2which provides the output 1 cycle and 2 cycles before, comes into the picture. Next, a free-running counter is designed using the ahead operator concept. The snapshot of the free-running counter is as shown.
+##### Sequential Logic: D Flip Flop
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3ec173f0-f437-4a31-92ea-ddc1bb5e6a55)
+Sequential Logic as State Machine
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/4b222f4c-dfa4-461d-9b57-cc6846cf7072)
+###### 1. Fibonacci Series
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/b263752b-5ae8-4fc6-ae09-6a3f8348d67a)
+###### 2. Fibonacci Series with the Reset
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/6a82b251-c4c7-493c-8ac2-777eaa558d83)
+###### 3. Counter Lab
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/82947e04-cf81-4bb9-a13c-dad86de9078c)
+##### Output: 
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3fa46299-a8c7-4ff8-b25e-9acac5b6b967)
+##### Link: [https://makerchip.com/sandbox/#](https://makerchip.com/sandbox/00Rf2hDnr/0nZhB0)
+##### Code:
+```
+\m5_TLV_version 1d: tl-x.org
+\m5
+   
+   // =================================================
+   // Welcome!  New to Makerchip? Try the "Learn" menu.
+   // =================================================
+   
+   //use(m5-1.0)   /// uncomment to use M5 macro library.
+\SV
+   // Macro providing required top-level module definition, random
+   // stimulus support, and Verilator config.
+   m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+   //$reset = *reset;
+   
+   $cnt[15:0] = $rest ? 0 : >>1$cnt + 1;
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+
+```
+
+#### Sequential Calculator 
 
 
 
