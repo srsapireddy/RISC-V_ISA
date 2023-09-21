@@ -508,6 +508,32 @@ Starting with basic example in sequential logic is Fibonacci Series with reset. 
 \SV
    endmodule
 ```
+#### Pipelined Logic
+##### Pipelined Logic and Re-Timing
+###### Simple Pipeline
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/474bda0a-6f47-4b08-870f-f92b0bfa0857)
+###### Simple Pipeline - Timing Abstract
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/7fbd54f6-6069-46d7-85d1-787e3c500e5b)
+##### TL-Verilog Code
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/6bad1d8e-2495-456c-92e0-f1e4ce38e545)
+##### System Verilog vs TL-Verilog
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/360ff3a2-8e3f-49d7-be66-008362bb0436)
+TL-Verilog has code reduction compared to System Verilog
+##### Code Reduction - Timing
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/e33fcef7-a297-4934-9a8b-e8f41db69671)
+The timing does not impact the overall behavior in TL-Verilog using Pipelining by changing the stage bucketing. If we want to spread logic in more stages, it is possible. It helps to propagate the signals in the silicon wafer from one corner to another. 
+##### Retiming in System Verilog
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/115e8285-c5c9-4dc8-894a-8cee706ea214)
+
+#### Pipeline Logic Advantages
+##### High Frequency
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/51d5fd11-63d0-4a68-af31-926421ba0eb9)
+We can run the design at a higher clock by pipelining the design. So, if we run our clock faster, we can produce more data and high throughput. 
+##### Example
+When we are pipelining the design, we are distributing the design in time. 
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/05ec8b39-de0a-4709-a213-53fd6c9ca6b3)
+
+
 
 
 
