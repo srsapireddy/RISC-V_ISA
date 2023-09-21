@@ -526,6 +526,12 @@ The timing does not impact the overall behavior in TL-Verilog using Pipelining b
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/115e8285-c5c9-4dc8-894a-8cee706ea214)
 
 #### Pipeline Logic Advantages
+Pipelining or timing abstract is an important feature in TL Verilog as it can be implemented very easily with fewer codes as compared to system Verilog, which reduces bugs to a great extent. An example of the pipeline for Pythagoras' theorem using TL verilog and system verilog is shown here. In TL, the Verilog pipeline can be implemented by defining the pipeline as |calc, and the different pipeline stages should be properly aligned and indicated by @1, @2, and so on.
+
+Below, the snapshot of the pipeline sequential calculator is included. Here, the first pipeline stage consists of the input followed by an arithmetic operation in the second pipeline stage, and finally, the output is included 2 cycles ahead in the third pipeline stage.
+
+Timing abstract is a powerful feature of TL-Verilog, which easily converts a code into pipeline stages. Whole code under |pipe scope with stages defined as @? Below is a snapshot of Counter and Calculator in Pipeline & 2-Cycle Calculator, which clears the output alternatively, and the output of given inputs is observed at the next cycle.
+
 ##### High Frequency
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/51d5fd11-63d0-4a68-af31-926421ba0eb9)
 We can run the design at a higher clock by pipelining the design. So, if we run our clock faster, we can produce more data and high throughput. 
