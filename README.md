@@ -233,22 +233,22 @@ Boolean Operations
 Multiplexer (MUX): Acts like a switch. Here, the Verilog represents a ternary operator.
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3446cb12-8900-454f-8518-a05d1a45b5b2)
 Changing Ternary Operator
-![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/389d9d75-36ab-4780-a8e8-ed2d459da5a6)
-Makerchip link: https://makerchip.com/
-Pipelined FPGA Multiplier Example:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/389d9d75-36ab-4780-a8e8-ed2d459da5a6) </br>
+Makerchip link: https://makerchip.com/ </br>
+Pipelined FPGA Multiplier Example: </br>
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d60eed37-63dd-4332-9e96-4b6ae75e30d3)
 Link: https://makerchip.com/sandbox/00Rf2hDnr/0lOh4v
 
 #### Labs for Combinational Logic
-Exercise 1:
+#### Exercise 1:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ada93032-494a-419f-af8e-6cfe2fdfcf3d)
-Output:
+##### Output:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ba5a18dd-4acf-438a-8be4-ace026c60625)
 
-Exercise 2:
+#### Exercise 2:
 Initially, we started understanding the Makerchip IDE platform by trying some basic digital logic gates, with the inverter being the standard. In TL Verilog, we code the logic itself viz $out =!$in1 without declaring the variables separately, and $in an assignment is also not required. The output of the above is shown in the figure below. We note that simultaneous highlighting of the variable is possible at the output.
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3292720d-199d-408a-b684-8d016b2f9cd7)
-Output:
+##### Output:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/62cf9d68-c44c-48ea-b295-b85918a09d33)
 ##### Code
 ```
@@ -277,9 +277,9 @@ Output:
 
 ```
 
-Exercise 3: Vectors Lab
+#### Exercise 3: Vectors Lab
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/12fc1968-69da-4270-9b8b-d6828ea32e5d)
-Output:
+##### Output:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d2a7017c-4415-4df8-9320-6ff4877c76ad)
 ##### Code
 ```
@@ -304,9 +304,9 @@ Output:
 
 ```
 
-Exercise 4: Mux
+#### Exercise 4: Mux
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/32e70599-7e5c-4b5a-aaf5-6ebecc0f435c)
-Output 1:
+##### Output 1:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/5a52f29e-f762-4f32-8c93-03e264438357)
 ##### Code
 ```
@@ -324,7 +324,7 @@ Output 1:
    endmodule
 
 ```
-Output 2:
+##### Output 2:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/bef3bfc7-b27a-42ce-b3f2-3843de6b72cb)
 ##### Code
 ```
@@ -344,9 +344,9 @@ Output 2:
 ```
 
 
-Exercise 5: Combinational Calculator
+#### Exercise 5: Combinational Calculator
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/b30398ac-9296-470c-a6d3-bab0aeccb9a8)
-Output:
+##### Output:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/fbee12ba-f5ee-4764-857d-79b72bdec3da)
 
 ##### Code
