@@ -836,6 +836,9 @@ Here, we are adding the memory and recall operations. The mem is going to captur
 #### Hierarchy Example in TL-Verilog
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d28b7949-2826-44d0-97e6-d16a1ce07b1d)
 
+## Basic RISC-V CPU micro-architecture
+### Introduction to Simple RISC-V Micro-architecture
+
 
 
 
