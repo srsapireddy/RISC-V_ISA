@@ -638,6 +638,200 @@ endmodule
    endmodule
 ```
 
+#### Validity
+##### Introduction to Validity and its Advantages
+Validity is another feature in TL verilog, asserted if a particular transaction in a pipeline is valid or true. A new scope, called “when” scope, is introduced for this and is denoted as ?$valid. This new scope has many advantages - easier design, cleaner debugging, better error checking, and automated clock gating. The snapshot of validity introduced in the 2-cycle calculator is shown below.
+
+The red lines show they don't care here. These are invalid signals.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ad51bd3f-ab1e-4c33-8344-69782160506c)
+
+Clock gating is a power-saving feature. Use when we know the condition of the Flip-Flops is not required if the logic is not doing anything meaningful.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/c18686f8-dfb9-49fa-a675-0357986f945b)
+
+##### Validity and Valid When Condition
+Using m4_TLV_version, we are enabling macro pre-processing. 
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/b48416f9-f6dd-4b6f-b525-e8f813cd1ddc)
+Macro Expands to: This is the System Verilog module definition expected by the Microchip Platform. This is asserted due to statement *passed = *cyc_cnt > 16'd30; if the cycle count exceeds 30. Here, we simulate for 30 cycles.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/6ea62899-436d-4aca-be3b-5c1053e0d386)
+##### Distance Accumulator:  Pythagorean Theorem pipeline code
+$tot_dist accumulates the running-total distance. Since it holds state, a reset value must be supplied. During reset ($reset asserted), the ‘0 leg of the mux is selected to reset $tot_dist to zero. $reset is assigned outside of the pipeline scope. This means it is assigned in stage 0 (@0) of a default (unspecified) pipeline. After reset, while there is no valid hop ($valid de-asserted), $tot_dist is retained by recirculating it through the mux. When there is a valid hop, the adder provides $tot_dist with $cc + $tot_dist.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3fa8d198-f267-4983-81a3-d3c381caf06b)
+##### TL-Verilog vs. System Verilog Code
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/aff33e78-4b55-40f7-9bf5-41882b198ceb)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/febe31a1-4c31-4b82-847c-e9396a27b189)
+##### Computing Total Distance
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/75a77031-695e-4f96-b493-75fc33114e97)
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   `include "sqrt32.v";
+   
+   m4_makerchip_module
+\TLV
+   
+   // Stimulus
+   |calc
+      @1
+         $reset = *reset;
+      ?$valid
+         @1                                  // [>>>]
+            $aa_sq[7:0] = $aa[3:0] ** 2;     // [>>>]
+            $bb_sq[7:0] = $bb[3:0] ** 2;     // [>>>]
+         @2                                  // [>>>]
+            $cc_sq[8:0] = $aa_sq + $bb_sq;   // [>>>]
+         @3                                  // [>>>]
+            $cc[4:0] = sqrt($cc_sq);         // [>>>]
+         @4
+            $tot_dist[63:0] = 
+                $reset ? '0 : 
+                $valid ? >>1$tot_dist +$cc : 
+                         >>1$tot_dist;
+         
+!   *passed = *cyc_cnt > 16'd30;
+    
+\SV
+   endmodule
+
+```
+
+##### 2 Cycle Calculator with Validity
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/0fb07a00-3488-41e8-aa70-a644c16c3160)
+#### Output
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/638b8a49-83e9-4e96-93a6-34e6e98bd63a)
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   // This code can be found in: https://github.com/stevehoover/RISC-V_MYTH_Workshop
+   
+   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/bd1f186fde018ff9e3fd80597b7397a1c862cf15/tlv_lib/calculator_shell_lib.tlv'])
+
+\SV
+   m4_makerchip_module   // (Expanded in Nav-TLV pane.)
+
+\TLV
+   |calc
+      @0
+         $reset = *reset;
+         $count = $reset ? 0 : >>1$count + 1;
+         $valid = !($count);         
+         $valid_or_reset = $valid || $reset;
+         
+      ?$valid_or_reset
+         @1
+            $val1[31:0] = $reset ? 0: >>2$out[31:0];
+            $val2[31:0] = $rand2[3:0];
+
+            $sum[31:0]  = $val1[31:0] + $val2[31:0];
+            $diff[31:0] = $val1[31:0] - $val2[31:0];
+            $prod[31:0] = $val1[31:0] * $val2[31:0];
+            $quot[31:0] = $val1[31:0] / $val2[31:0];
+            $oldop[2:0] = $op[2:0];
+
+            //$count_num[31:0] = $reset ? 0 : >>1$count[31:0];
+            //$count[31:0] = $count_num[31:0] + 1;
+
+         @2
+        
+            $mem[31:0] = $reset ? 0 :
+                          ($oldop[2:0] == 3'b101) ? $out:
+                          $mem;
+                          
+            $out[31:0] = //($reset | !($count) ) ? 0 :
+                         ($oldop[2:0] == 3'b000) ? $sum[31:0]:
+                         ($oldop[2:0] == 3'b001) ? $diff[31:0]:
+                         ($oldop[2:0] == 3'b010) ? $prod[31:0]:
+                         ($oldop[2:0] == 3'b011) ? $quot[31:0]:
+                         ($oldop[2:0] == 3'b100) ? >>1$mem:
+                         $out;
+
+      // Macro instantiations for calculator visualization(disabled by default).
+      // Uncomment to enable visualisation, and also,
+      // NOTE: If visualization is enabled, $op must be defined to the proper width using the expression below.
+      //       (Any signals other than $rand1, $rand2 that are not explicitly assigned will result in strange errors.)
+      //       You can, however, safely use these specific random signals as described in the videos:
+      //o $rand1[3:0]
+      //o $rand2[3:0]
+      //o $op[3:0]
+   m4+cal_viz(@3) // Arg: Pipeline stage represented by viz, should be atleast equal to last stage of CALCULATOR logic.
+
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+   
+
+\SV
+   endmodule
+```
+
+#### Single Value Memory
+Here, we are adding the memory and recall operations. The mem is going to capture the value in the memory, and recall is going to bring it back to the main value in the calculator, which is the out signal.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/25d54385-2582-4670-b80f-f3787a50c7c4)
+
+#### Output
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/fbaf8c25-3b3a-42d0-8fb9-7df51e1d1303)
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   // This code can be found in: https://github.com/stevehoover/RISC-V_MYTH_Workshop
+   
+   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/bd1f186fde018ff9e3fd80597b7397a1c862cf15/tlv_lib/calculator_shell_lib.tlv'])
+
+\SV
+   m4_makerchip_module   // (Expanded in Nav-TLV pane.)
+
+\TLV   
+   |calc
+      @0
+         $reset = *reset;
+         
+      @1
+         $val1 [31:0] = >>2$out;
+         $val2 [31:0] = $rand2[3:0];
+         
+         $valid = $reset ? 1'b0 : >>1$valid + 1'b1 ;
+         $valid_or_reset = $valid || $reset;
+         
+      ?$vaild_or_reset
+         @1   
+            $sum [31:0] = $val1 + $val2;
+            $diff[31:0] = $val1 - $val2;
+            $prod[31:0] = $val1 * $val2;
+            $quot[31:0] = $val1 / $val2;
+            
+         @2   
+            $mem[31:0] = $reset ? 32'b0 :
+                         ($op[2:0] == 3'b101) ? $val1 : >>2$mem ;
+            
+            $out [31:0] = $reset ? 32'b0 :
+                          ($op[2:0] == 3'b000) ? $sum :
+                          ($op[2:0] == 3'b001) ? $diff :
+                          ($op[2:0] == 3'b010) ? $prod :
+                          ($op[2:0] == 3'b011) ? $quot :
+                          ($op[2:0] == 3'b100) ? >>2$mem : >>2$out ;
+            
+            
+
+      // Macro instantiations for calculator visualization(disabled by default).
+      // Uncomment to enable visualisation, and also,
+      // NOTE: If visualization is enabled, $op must be defined to the proper width using the expression below.
+      //       (Any signals other than $rand1, $rand2 that are not explicitly assigned will result in strange errors.)
+      //       You can, however, safely use these specific random signals as described in the videos:
+      //  o $rand1[3:0]
+      //  o $rand2[3:0]
+      //  o $op[x:0]
+      
+   //m4+cal_viz(@3) // Arg: Pipeline stage represented by viz, should be atleast equal to last stage of CALCULATOR logic.
+
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+   
+
+\SV
+   endmodule
+```
 
 
 
