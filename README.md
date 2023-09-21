@@ -244,19 +244,163 @@ Exercise 1:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ada93032-494a-419f-af8e-6cfe2fdfcf3d)
 Output:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ba5a18dd-4acf-438a-8be4-ace026c60625)
-Link: https://makerchip.com/sandbox/00Rf2hDnr/0mwh4n#
+
 Exercise 2:
 Initially, we started understanding the Makerchip IDE platform by trying some basic digital logic gates, with the inverter being the standard. In TL Verilog, we code the logic itself viz $out =!$in1 without declaring the variables separately, and $in an assignment is also not required. The output of the above is shown in the figure below. We note that simultaneous highlighting of the variable is possible at the output.
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3292720d-199d-408a-b684-8d016b2f9cd7)
 Output:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/62cf9d68-c44c-48ea-b295-b85918a09d33)
-Link: https://makerchip.com/sandbox/00Rf2hDnr/0mwh4n
+##### Code
+```
+\m5_TLV_version 1d: tl-x.org
+\m5
+   
+   // =================================================
+   // Welcome!  New to Makerchip? Try the "Learn" menu.
+   // =================================================
+   
+   //use(m5-1.0)   /// uncomment to use M5 macro library.
+\SV
+   // Macro providing required top-level module definition, random
+   // stimulus support, and Verilator config.
+   m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+   $reset = *reset;
+   
+   $out = ! $in1;
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+
+```
+
 Exercise 3: Vectors Lab
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/12fc1968-69da-4270-9b8b-d6828ea32e5d)
+Output:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d2a7017c-4415-4df8-9320-6ff4877c76ad)
+##### Code
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   
+   m4_makerchip_module
+\TLV
+   
+   $reset = *reset;
+   $out1 = $A & $B; // AND gate
+   $out2 = $A | $B; // OR gate
+   $out3 = $A ^ $B; // XOR gate
+   $out4 = !($A & $B); // NAND gate
+   $out5 = !($A & $B); // NOR gate
+   $out6 = !($A & $B); // XNOR gate
+
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+
+```
+
 Exercise 4: Mux
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/32e70599-7e5c-4b5a-aaf5-6ebecc0f435c)
+Output 1:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/5a52f29e-f762-4f32-8c93-03e264438357)
+##### Code
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   
+   m4_makerchip_module
+\TLV
+   
+   $out = $sel ? $in1 : $in2;
+
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+
+```
+Output 2:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/bef3bfc7-b27a-42ce-b3f2-3843de6b72cb)
+##### Code
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   
+   m4_makerchip_module
+\TLV
+   
+   $out[7:0] = $sel ? $in1[7:0] : $in2[7:0];
+
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+
+```
+
+
 Exercise 5: Combinational Calculator
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/b30398ac-9296-470c-a6d3-bab0aeccb9a8)
+Output:
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/fbee12ba-f5ee-4764-857d-79b72bdec3da)
+
+##### Code
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   // TL-Verilog docs: http://tl-x.org
+   // Tutorials:       http://makerchip.com/tutorials
+   //m4_makerchip_module
+      // To relax Verilator compiler checking:
+      /* verilator lint_off UNOPTFLAT */
+      /* verilator lint_off WIDTH */
+
+   // =========================================
+   // Welcome!  Try the tutorials via the menu.
+   // =========================================
+
+   // Default Makerchip TL-Verilog Code Template
+
+   // Macro providing required top-level module definition, random
+   // stimulus support, and Verilator config.
+   m4_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+   $reset = *reset;
+   
+   //define smaller random numbers 4bit and assign to val1/val2
+   // 31-4 bits of val1/val2 will be zero and 0-9 bits will be rand1/rand2
+   //values
+   $val1[31:0] = $rand1[3:0];
+   $val2[31:0] = $rand2[3:0];
+   $op[1:0] = $rand3[1:0];
+   $sum[31:0] = $val1[31:0] + $val2[31:0];
+   $diff[31:0] = $val1[31:0] - $val2[31:0];
+   $prod[31:0] = $val1[31:0] * $val2[31:0];
+   $quot[31:0] = $val1[31:0] / $val2[31:0];
+   $out[31:0] =
+         ($op == 0)
+           ? $sum[31:0] :
+         ($op == 1)
+           ? $diff[31:0] :
+         ($op == 2)
+           ? $prod[31:0] :
+         ($op == 3)
+           ? $quot[31:0] :
+         //default
+           32'b0;
+
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+
+\SV
+   endmodule
+```
 
 
 
