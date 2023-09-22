@@ -852,7 +852,7 @@ An instruction memory containing the sum 1..9 test program.
 Commented code for register file and memory.
 Visualization.
 
-Designing of processor is based on three core steps fetch, decode and execute.
+The processor's design is based on three core steps: fetch, decode, and execute.
 
 For each successive cycle, we are going to fetch a new instruction. 
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/67b96a01-9ab4-46a9-98a1-74029f75ba70)
@@ -1150,6 +1150,16 @@ Following decoding the above, the instruction immediately decodes for all the ab
 \SV
    endmodule
 ```
+
+#### Arrays - What's inside?
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/47127d3a-da72-4980-8ab2-38e971977193)
+#### Register File Write and Read
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/51899dd8-5ce6-48ab-8b2f-34aad58909c3)
+
+#### Implementing Branch Instructions
+Here B type instructions are branch instructions
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/c98354ff-fc4d-47db-92f4-d6860161c332)
+
 
 ### RISC-V Control Logic
 #### Register File Read (UPDATED SHELL CODE)
