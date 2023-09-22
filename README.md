@@ -838,9 +838,321 @@ Here, we are adding the memory and recall operations. The mem is going to captur
 
 ## Basic RISC-V CPU micro-architecture
 ### Introduction to Simple RISC-V Micro-architecture
+##### RISC-V Block Diagram
+The program counter is a pointer to the instruction memory. So, the PC is sent into the instruction memory. Into the instruction, we execute next. The PC is sent to the instruction memory as an index. The data that comes back from the instruction memory is the instruction itself. The decoder is used to decode the instruction. The decoder picks the parts of the instruction register - the source register, the destination register, and instructions like branch instructions and immediate value. The branch instruction takes us from one instruction to target instruction based on the target.  
 
+The MUX is used to compute the next PC for a branch instruction. The next PC for a branch is the incremented value of the PC with offset from the instruction applied. Rf and Rd are two port register files. So, we get two register values from Rf and Rd. from the register file and send them to ALU to perform arithmetic operations.  The result of the operation then returns to the memory. So, the register file also has the right port to write the result into the register file. 
 
+In addition to that, we have loaded and stored memory instructions. The store instruction with the store address is provided relative to the register. The source register provides the base address, and effect is provided as an immediate field for the store instruction. These two are added together to provide the store address—the same thing for the load instruction, which will load from the memory. Load is going to access the memory and used to access the data. And it is also come back and written into the register file. 
 
+The block diagram of a basic RISC-V microarchitecture is shown in the figure below. Now, using the Makerchip platform, the RISC-V microarchitecture or core is implemented. For starting the implementation, a starter code present here is used. The starter code consists of -
+
+A simple RISC-V assembler.
+An instruction memory containing the sum 1..9 test program.
+Commented code for register file and memory.
+Visualization.
+
+Designing of processor is based on three core steps fetch, decode and execute.
+
+For each successive cycle, we are going to fetch a new instruction. 
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/67b96a01-9ab4-46a9-98a1-74029f75ba70)
+
+#### Starting point Code for RISC-V
+##### Implementation Plan
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/ee1a4a84-8822-4f55-a9ce-3963d5e77e37)
+##### Shell Code
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/579d6bf7-9df1-4b26-b855-fb83b6c1663a)
+Link: https://github.com/stevehoover/RISC-V_MYTH_Workshop
+##### Instructions in the memory
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/1aa6d087-afdf-42dd-bb24-864bb9f38693)
+
+### Fetch and Decode
+#### Implementation Plan for PC (Program Counter)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/5ceeed39-91b6-4d8f-a48d-535ac04e1d0b)
+#### PC Logic
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/b6c233e2-ed1b-4c9a-b058-9f33f424f338)
+### Output
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/f54e4d0b-861f-478b-9006-ce7a56413a39)
+### Code
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   // This code can be found in: https://github.com/stevehoover/RISC-V_MYTH_Workshop
+   
+   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/c1719d5b338896577b79ee76c2f443ca2a76e14f/tlv_lib/risc-v_shell_lib.tlv'])
+
+\SV
+   m4_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+
+   // /====================\
+   // | Sum 1 to 9 Program |
+   // \====================/
+   //
+   // Program for MYTH Workshop to test RV32I
+   // Add 1,2,3,...,9 (in that order).
+   //
+   // Regs:
+   //  r10 (a0): In: 0, Out: final sum
+   //  r12 (a2): 10
+   //  r13 (a3): 1..10
+   //  r14 (a4): Sum
+   // 
+   // External to function:
+   m4_asm(ADD, r10, r0, r0)             // Initialize r10 (a0) to 0.
+   // Function:
+   m4_asm(ADD, r14, r10, r0)            // Initialize sum register a4 with 0x0
+   m4_asm(ADDI, r12, r10, 1010)         // Store count of 10 in register a2.
+   m4_asm(ADD, r13, r10, r0)            // Initialize intermediate sum register a3 with 0
+   // Loop:
+   m4_asm(ADD, r14, r13, r14)           // Incremental addition
+   m4_asm(ADDI, r13, r13, 1)            // Increment intermediate register by 1
+   m4_asm(BLT, r13, r12, 1111111111000) // If a3 is less than a2, branch to label named <loop>
+   m4_asm(ADD, r10, r14, r0)            // Store final result to register a0 so that it can be read by main program
+   
+   // Optional:
+   // m4_asm(JAL, r7, 00000000000000000000) // Done. Jump to itself (infinite loop). (Up to 20-bit signed immediate plus implicit 0 bit (unlike JALR) provides byte address; last immediate bit should also be 0)
+   m4_define_hier(['M4_IMEM'], M4_NUM_INSTRS)
+
+   |cpu
+      @0
+         $reset = *reset;
+         $pc[31:0] = >>1$reset ? 32'b0 : (>>1$pc + 32'd4);
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+   
+   // Macro instantiations for:
+   //  o instruction memory
+   //  o register file
+   //  o data memory
+   //|cpu
+      //m4+imem(@1)    // Args: (read stage)
+      //m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
+      //m4+dmem(@4)    // Args: (read/write stage)
+   
+\SV
+   endmodule
+```
+
+#### Fetch
+During the fetch stage, processors fetch the instruction from the memory to the address pointed by the program counter. The program counters hold the address of the next stage; in our case, it is after 4 cycles, and the instruction memory holds the set of instructions to be executed. The snapshot of the fetch stage is shown below.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/b20d4046-d4f6-46e3-8ecd-54df53b138d1)
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/fb505f37-aa55-4e80-8fd1-492e315da6da)
+#### Output
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/62e9390d-a7c7-4c81-b4d6-73d8735b1842)
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   // This code can be found in: https://github.com/stevehoover/RISC-V_MYTH_Workshop
+   
+   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/c1719d5b338896577b79ee76c2f443ca2a76e14f/tlv_lib/risc-v_shell_lib.tlv'])
+
+\SV
+   m4_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+
+   // /====================\
+   // | Sum 1 to 9 Program |
+   // \====================/
+   //
+   // Program for MYTH Workshop to test RV32I
+   // Add 1,2,3,...,9 (in that order).
+   //
+   // Regs:
+   //  r10 (a0): In: 0, Out: final sum
+   //  r12 (a2): 10
+   //  r13 (a3): 1..10
+   //  r14 (a4): Sum
+   // 
+   // External to function:
+   m4_asm(ADD, r10, r0, r0)             // Initialize r10 (a0) to 0.
+   // Function:
+   m4_asm(ADD, r14, r10, r0)            // Initialize sum register a4 with 0x0
+   m4_asm(ADDI, r12, r10, 1010)         // Store count of 10 in register a2.
+   m4_asm(ADD, r13, r10, r0)            // Initialize intermediate sum register a3 with 0
+   // Loop:
+   m4_asm(ADD, r14, r13, r14)           // Incremental addition
+   m4_asm(ADDI, r13, r13, 1)            // Increment intermediate register by 1
+   m4_asm(BLT, r13, r12, 1111111111000) // If a3 is less than a2, branch to label named <loop>
+   m4_asm(ADD, r10, r14, r0)            // Store final result to register a0 so that it can be read by main program
+   
+   // Optional:
+   // m4_asm(JAL, r7, 00000000000000000000) // Done. Jump to itself (infinite loop). (Up to 20-bit signed immediate plus implicit 0 bit (unlike JALR) provides byte address; last immediate bit should also be 0)
+   m4_define_hier(['M4_IMEM'], M4_NUM_INSTRS)
+
+   |cpu
+      @0
+         $reset = *reset;
+         $pc[31:0] = >>1$reset ? 32'b0 : (>>1$pc + 32'd4);
+         
+      @1
+         $imem_rd_en = !$reset;
+         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];
+         $instr[31:0] = $imem_rd_data[31:0]; 
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+   
+   // Macro instantiations for:
+   //  o instruction memory
+   //  o register file
+   //  o data memory
+   |cpu
+      m4+imem(@1)    // Args: (read stage)
+      //m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
+      //m4+dmem(@4)    // Args: (read/write stage)
+
+\SV
+   endmodule
+```
+
+#### Decode
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/3a674de1-e764-48a5-9781-1dd15ef92ea5)
+For decoding a particular instruction, it is necessary that the instruction type and format are known to the processor. To avoid errors, the decoding must be done properly according to the given format. There are 6 instruction types in RISC-V :
+
+#### Instruction Type Decode
+The lower 2 bits, bits 0 and 1, are always 1 for the base instruction set. We are going to ignore those 2 bits. So we are decoding the bits 6:2.
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/7bba07b0-60e8-4443-a48f-acc5aeaafd7b)
+
+Register (R) type
+Immediate (I) type
+Store (S) type
+Branch (B) type
+Upper immediate (U) type
+Jump (J) type
+Following decoding the above, the instruction immediately decodes for all the above, except the register type is added. The 6 other instruction format/fields, including the opcode, 2 source register, destination register, and funct3 and funct7 decode, is included. Next, the instruction field decode of the different instruction types is inserted to ensure that only valid registers are used. Finally, the base instruction set decode for the various fields is incorporated. The instruction type and format are shown in the figure below and are sourced from here.
+
+#### Instruction Immediate Decode
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/7c93fb6f-d82a-4ecc-ae1c-b583afefc26f)
+#### Ectract other instruction fields
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/46c1de3b-f585-417d-a55f-2a0e62cf0ca0)
+#### Using when conditions
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/35a08c6a-1243-4b80-b950-b362cebaca86)
+#### RV32I Base Instruction: Decode Individual Instructions
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/d0c9d5d2-953a-4b43-a59c-d83a11de2f80)
+
+### Instruction Decode
+### Output
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/aface58f-5f45-4d4f-b2e0-7bf655924a8a)
+### Code
+```
+\m4_TLV_version 1d: tl-x.org
+\SV
+   // This code can be found in: https://github.com/stevehoover/RISC-V_MYTH_Workshop
+   
+   m4_include_lib(['https://raw.githubusercontent.com/stevehoover/RISC-V_MYTH_Workshop/c1719d5b338896577b79ee76c2f443ca2a76e14f/tlv_lib/risc-v_shell_lib.tlv'])
+
+\SV
+   m4_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+
+   // /====================\
+   // | Sum 1 to 9 Program |
+   // \====================/
+   //
+   // Program for MYTH Workshop to test RV32I
+   // Add 1,2,3,...,9 (in that order).
+   //
+   // Regs:
+   //  r10 (a0): In: 0, Out: final sum
+   //  r12 (a2): 10
+   //  r13 (a3): 1..10
+   //  r14 (a4): Sum
+   // 
+   // External to function:
+   m4_asm(ADD, r10, r0, r0)             // Initialize r10 (a0) to 0.
+   // Function:
+   m4_asm(ADD, r14, r10, r0)            // Initialize sum register a4 with 0x0
+   m4_asm(ADDI, r12, r10, 1010)         // Store count of 10 in register a2.
+   m4_asm(ADD, r13, r10, r0)            // Initialize intermediate sum register a3 with 0
+   // Loop:
+   m4_asm(ADD, r14, r13, r14)           // Incremental addition
+   m4_asm(ADDI, r13, r13, 1)            // Increment intermediate register by 1
+   m4_asm(BLT, r13, r12, 1111111111000) // If a3 is less than a2, branch to label named <loop>
+   m4_asm(ADD, r10, r14, r0)            // Store final result to register a0 so that it can be read by main program
+   
+   // Optional:
+   // m4_asm(JAL, r7, 00000000000000000000) // Done. Jump to itself (infinite loop). (Up to 20-bit signed immediate plus implicit 0 bit (unlike JALR) provides byte address; last immediate bit should also be 0)
+   m4_define_hier(['M4_IMEM'], M4_NUM_INSTRS)
+
+   |cpu
+      @0
+         $reset = *reset;
+         $pc[31:0] = >>1$reset ? 32'b0 : (>>1$pc + 32'd4);
+         
+      @1
+         $imem_rd_en = !$reset;
+         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];
+         $instr[31:0] = $imem_rd_data[31:0]; 
+         $is_i_instr = $instr[6:2] ==? 5'b0000x ||
+                       $instr[6:2] ==? 5'b001x0 ||
+                       $instr[6:2] ==? 5'b11001 ||
+                       $instr[6:2] ==? 5'b11100;
+         $is_r_instr = $instr[6:2] ==? 5'b01011 ||
+                       $instr[6:2] ==? 5'b0x100 ||
+                       $instr[6:2] ==? 5'b01110;
+         $is_s_instr = $instr[6:2] ==? 5'b0100x;
+         $is_b_instr = $instr[6:2] ==? 5'b11000;
+         $is_j_instr = $instr[6:2] ==? 5'b11011;
+         $is_u_instr = $instr[6:2] ==? 5'b0x101;
+         
+         $imm[31:0] = $is_i_instr ? { {21{$instr[31]}}, $instr[30:20]} :
+                      $is_s_instr ? { {21{$instr[31]}}, $instr[30:25], $instr[11:7]} :
+                      $is_b_instr ? { {20{$instr[31]}}, $instr[7], $instr[30:25], $instr[11:8], 1'b0} :
+                      $is_u_instr ? { $instr[31:12], 12'b0} :
+                      $is_j_instr ? { {12{$instr[31]}}, $instr[19:12], $instr[20], $instr[30:21], 1'b0} : 32'b0;
+         
+         $rs2_valid = $is_r_instr || $is_s_instr || $is_b_instr;
+         ?$rs2_valid
+            $rs2[4:0] = $instr[24:20];
+         
+         $rs1_valid = $is_r_instr || $is_s_instr || $is_b_instr || $is_i_instr;
+         ?$rs2_valid
+            $rs1[4:0] = $instr[19:15];
+         
+         $funct3_valid = $is_r_instr || $is_s_instr || $is_b_instr || $is_i_instr;
+         ?$rs2_valid
+            $funct3[3:0] = $instr[14:12];
+   
+         $opcode[6:0] = $instr[6:0];
+         
+         $funct7_valid = $is_r_instr;
+         ?$rs2_valid
+            $funct7[6:0] = $instr[31:25];
+            
+         $dec_bits[10:0] = {$funct[5], $funct3, $opcode};
+         $is_beq = $dec_bits ==? 11'bx_000_1100011;
+         $is_bne = $dec_bits ==? 11'bx_001_1100011;
+         $is_blt = $dec_bits ==? 11'bx_100_1100011;
+         $is_bge = $dec_bits ==? 11'bx_101_1100011;
+         $is_bltu = $dec_bits ==? 11'bx_110_1100011;
+         $is_bgeu = $dec_bits ==? 11'bx_111_1100011;
+         $is_addi = $dec_bits ==? 11'bx_000_0010011;
+         $is_add = $dec_bits == 11'b0_000_0110011;
+
+     
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+   
+   // Macro instantiations for:
+   //  o instruction memory
+   //  o register file
+   //  o data memory
+   |cpu
+      m4+imem(@1)    // Args: (read stage)
+      //m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
+      //m4+dmem(@4)    // Args: (read/write stage)
+   
+\SV
+   endmodule
+```
+
+### RISC-V Control Logic
+#### Register File Read (UPDATED SHELL CODE)
 
 
 
