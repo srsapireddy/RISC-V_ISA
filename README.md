@@ -2174,8 +2174,9 @@ This branch can be a forward or backward branch. If the previous instruction is 
    endmodule
 ```
 
-### RISC-V Control Logic
-#### Register File Read (UPDATED SHELL CODE)
+### Pipelined RISC-V CPU micro-architecture
+#### Introduction to Control Flow Hazard and Read after Write Hazard
+
 
 
 
