@@ -2176,7 +2176,42 @@ This branch can be a forward or backward branch. If the previous instruction is 
 
 ### Pipelined RISC-V CPU micro-architecture
 #### Introduction to Control Flow Hazard and Read after Write Hazard
+Now, pipelining of the CPU core is done, which allows easy retiming and reduces functional bugs to a great extent. Pipelining allows faster computation. For pipelining, as mentioned earlier, we need to add @1, @2, and so on. The snapshot of the pipelining is shown below. In TL verilog, another advantage is that defining the pipeline in systematic order is unnecessary. More information on timing abstract can be found in the IEEE paper "Timing-Abstract Circuit Design in Transaction-Level Verilog" by Steeve Hoover in Makerchip platform itself.
 
+Converting non-pipelined CPU to pipelined CPU using timing abstract feature of TL-Verilog. This allows easy retiming without any risk of functional bugs. More details regarding Timing Abstract in TL-Verilog can be found in IEEE Paper "Timing-Abstract Circuit Design in Transaction-Level Verilog" by Steven Hoover.
+
+Pipelining the CPU with branches still having 3 cycle delay; rest all instructions are pipelined. Pipelining the CPU in TL-Verilog can be done in the following manner:
+
+```
+|<pipe-name>
+    @<pipe stage>
+       Instructions present in this stage
+       
+    @<pipe_stage>
+       Instructions present in this stage       
+```
+
+Test case:
+
+```
+*passed = |cpu/xreg[10]>>5$value == (1+2+3+4+5+6+7+8+9);
+```
+Similar to the branch, the load will also have 3 3-cycle delays. So, I added a Data Memory 1 write/read memory.
+
+
+Inputs:
+Read_Enable - Enable signal to perform a read operation
+Write_Enable - Enable signal to perform write operation
+Address - Address specified whether to read/write from
+Write_Data - Data to be written on Address (Store Instruction)
+Output:
+
+Read_Data - Data to be read from Address (Load Instruction)
+Added test case to check functionality of load/store. Stored the summation of 1 to 9 on address 4 of Data Memory and loaded that value from Data Memory to r17.
+
+```
+*passed = |cpu/xreg[17]>>5$value == (1+2+3+4+5+6+7+8+9);
+```
 
 
 
