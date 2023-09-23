@@ -64,8 +64,7 @@ Assembly code for which we are trying to run the C program:
 15 instructions came out when we the options -o1 and other options.
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/c043ad04-be08-405e-ab40-fa659aba1135)
 ### Correct Output: Use -O1 instead of -o1
-![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/46b78123-e845-4492-88d9-e039bf33ba72)
-
+![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/c0874ae5-e380-4080-8316-20a2e8c95e88)
 
 Running the command with different options:
 ![image](https://github.com/srsapireddy/RISC-V_ISA/assets/32967087/54a05cf8-a28a-4a9f-b426-22a33e0194c4)
